@@ -1,7 +1,11 @@
+"use client"
+import classNames from 'classnames'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { GiVelociraptorTracks } from 'react-icons/gi'
 
 const Navbar = () => {
+    const currentPath = usePathname()
     const links =[
         {label:"Dashboard",href:"/"},
         {label:"Issues",href:"/issues"}
@@ -12,7 +16,11 @@ const Navbar = () => {
         <ul className=' flex gap-10'>
             {
                 links.map((item)=><Link
-                className=' text-neutral-600 hover:text-neutral-900 transition-colors'
+                className={classNames({
+                    "text-neutral-800 border-b-2 border-b-neutral-400":item.href===currentPath,
+                    "text-neutral-600":item.href!==currentPath,
+                    "hover:text-neutral-900 transition-colors":true
+                })}
                 href={`${item.href}`} key={item.label}>{item.label}</Link>)
             }
         </ul>
