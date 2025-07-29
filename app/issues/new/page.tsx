@@ -11,6 +11,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import { createIssueSchema } from '@/app/api/issues/validationSchema';
 import {z} from 'zod'
 import ErrorMessage from '@/components/ErrorMessage';
+import Loader from '@/components/Loader';
 
 // interface IsssueForm{
 //   title:string;
@@ -20,6 +21,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 
 const NewIssuePage = () => {
   const [error,setError] = useState(false)
+  const [submitting,setSubmitting] = useState(false)
   const router = useRouter()
   const {register,control,handleSubmit,formState:{errors}} = useForm<IsssueForm>({
     resolver: zodResolver(createIssueSchema)
@@ -31,10 +33,12 @@ const NewIssuePage = () => {
         <div className=' border  h-fit py-10 px-24 shadow-xl rounded-2xl  shadow-neutral-300 flex  flex-col items-center gap-5'>    
           <form onSubmit={handleSubmit( async (data)=>{
            try {
+            setSubmitting(true)
              await axios.post("/api/issues",data)
              router.push("/issues")
              setError(false)
            } catch (error) {
+            setSubmitting(false)
              toast.error("An unexpected error occured!",{autoClose:3000,className:" bg-red-200 text-black"})
              setError(true)
             }
@@ -49,7 +53,9 @@ const NewIssuePage = () => {
           </Controller>
             {errors.description&& <ErrorMessage>{errors.description?.message}</ErrorMessage>}
            
-            <Button className=' px-3 shadow-lg shadow-neutral-500 py-1 bg-neutral-800 hover:bg-black active:bg-black cursor-pointer'>Submit New Issue</Button>
+            <Button 
+            disabled={submitting}
+            className=' px-3 shadow-lg shadow-neutral-500 py-1 bg-neutral-800 hover:bg-black active:bg-black cursor-pointer'>Submit {submitting&&<Loader/>}</Button>
             </form>  
         </div>
 
