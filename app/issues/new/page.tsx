@@ -10,12 +10,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import {zodResolver} from '@hookform/resolvers/zod'
 import { createIssueSchema } from '@/app/api/issues/validationSchema';
 import {z} from 'zod'
+import ErrorMessage from '@/components/ErrorMessage';
 
 // interface IsssueForm{
 //   title:string;
 //   description:string
 // }
-   type IsssueForm= z.infer<typeof createIssueSchema>
+  type IsssueForm= z.infer<typeof createIssueSchema>
 
 const NewIssuePage = () => {
   const [error,setError] = useState(false)
@@ -39,14 +40,14 @@ const NewIssuePage = () => {
             }
            })}>  
             <input type="text" placeholder='Title' className=' px-4  py-2 border border-neutral-300 text-neutral-700 text-sm focus:outline-1 focus: outline-gray-400 rounded-lg' {...register("title")}/>
-            {errors.title&&<p className=' text-red-500 text-xs my-3'>{errors.title.message}</p>}
+            {errors.title&&<ErrorMessage>{errors.title?.message}</ErrorMessage>}
           <Controller
           render={({field})=> <SimpleMDE  {...field} placeholder='Description'     className=' px-4 w-full py-2 border border-neutral-300 text-neutral-700 text-sm focus:outline-1 focus: outline-gray-400 rounded-lg'/>}
           control={control}
           name='description'
           >
           </Controller>
-            {errors.description&& <p className=' my-4 text-red-500 text-xs'>{errors.description.message}</p>}
+            {errors.description&& <ErrorMessage>{errors.description?.message}</ErrorMessage>}
            
             <Button className=' px-3 shadow-lg shadow-neutral-500 py-1 bg-neutral-800 hover:bg-black active:bg-black cursor-pointer'>Submit New Issue</Button>
             </form>  
