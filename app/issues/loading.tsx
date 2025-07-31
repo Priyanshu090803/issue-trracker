@@ -1,17 +1,14 @@
- 
-
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
-import prisma from '../lib/prisma'
-import StatusBadge from '@/components/StatusBadge'
-import delay from 'delay'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-const Issues = async() => {
-  const issueData = await prisma.issue.findMany()
-  await delay(2000)
-  return (
-    <div className='min-h-screen   p-4 md:p-6 lg:p-8'>
+
+const Loading = () => {
+    const issueData=[1,2,3,4,5]
+  return (  
+     <div className='min-h-screen   p-4 md:p-6 lg:p-8'>
       {/* Header Section */}
       <div className='max-w-7xl mx-auto'>
         <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8'>
@@ -43,9 +40,6 @@ const Issues = async() => {
             </div>
             <div className='px-6 py-4 font-semibold text-gray-800 text-left border-r border-gray-200'>
               <div className='flex items-center gap-2'>
-                {/* <svg className='w-5 h-5 text-green-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 6h16M4 12h16M4 18h7' />
-                </svg> */}
                 Status
               </div>
             </div>
@@ -76,19 +70,19 @@ const Issues = async() => {
               </div>
             ) : (
               issueData.map((item, index) => (
-                <div key={item.id} className='hover:bg-gray-50 transition-colors duration-150'>
+                <div key={item } className='hover:bg-gray-50 transition-colors duration-150'>
                   {/* Desktop Layout */}
                   <div className='hidden md:grid md:grid-cols-3 items-center'>
                     <div className='px-6 py-4 border-r border-gray-100'>
-                      <h3 className='font-semibold text-gray-900 truncate text-left line-clamp-1'>{item.title}</h3>
+                      <h3 className='font-semibold text-gray-900 truncate text-left line-clamp-1'><Skeleton/></h3>
                     </div>
                     <div className='px-6 py-4 border-r border-gray-100'>
-                      <StatusBadge status={item.status}/> 
+                    <Skeleton/>
                     </div>
                     <div className='px-6 py-4'>
                       <div className='flex items-center gap-2 text-left'>
                         <span className='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800'>
-                          {item.createdAt.toDateString()}
+                         <Skeleton />
                         </span>
                       </div>
                     </div>
@@ -97,22 +91,13 @@ const Issues = async() => {
                   {/* Mobile Layout */}
                   <div className='md:hidden p-6 space-y-4'>
                     <div className='flex items-start justify-between'>
-                      <h3 className='font-semibold text-gray-900 text-lg flex-1 mr-4 line-clamp-1'>{item.title}</h3>
+                      <h3 className='font-semibold text-gray-900 text-lg flex-1 mr-4 line-clamp-1'> <Skeleton/></h3>
                       <span className='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 whitespace-nowrap'>
-                        {item.createdAt.toDateString()}
+                     <Skeleton/>
                       </span>
                     </div>
-                      <StatusBadge status={item.status}/> 
+                       <Skeleton/>
                     <div className='flex items-center justify-between pt-2 border-t border-gray-200'>
-                      {/* <div className='flex items-center gap-2 text-sm text-gray-500'>
-                        <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
-                        </svg>
-                        Issue #{index + 1}
-                      </div> */}
-                      {/* <Button variant='ghost' size='sm' className='text-blue-600 hover:text-blue-700 hover:bg-blue-50'>
-                        View Details
-                      </Button> */}
                     </div>
                   </div>
                 </div>
@@ -150,4 +135,4 @@ const Issues = async() => {
   )
 }
 
-export default Issues
+export default Loading
