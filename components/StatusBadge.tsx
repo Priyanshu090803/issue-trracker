@@ -10,7 +10,7 @@ const StatusMap: Record<Status, { label: string; color: "red" | "purple" | "gree
 
 const StatusBadge = ({status}:{status:Status}) => {
   return (
-    <p style={{color:StatusMap[status].color}} className=' text-sm font-medium uppercase'>
+    <p style={{backgroundColor:StatusMap[status].color}} className=' text-neutral-50 w-fit rounded-md  px-2 py-1  text-xs font-medium uppercase'>
         {StatusMap[status].label}
     </p>
   )

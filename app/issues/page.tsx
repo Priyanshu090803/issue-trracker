@@ -79,9 +79,9 @@ const Issues = async() => {
                 <div key={item.id} className='hover:bg-gray-50 transition-colors duration-150'>
                   {/* Desktop Layout */}
                   <div className='hidden md:grid md:grid-cols-3 items-center'>
-                    <div className='px-6 py-4 border-r border-gray-100'>
+                    <Link href={`/issues/${item.id}`} className='px-6 py-4 border-r border-gray-100'>
                       <h3 className='font-semibold text-gray-900 truncate text-left line-clamp-1'>{item.title}</h3>
-                    </div>
+                    </Link>
                     <div className='px-6 py-4 border-r border-gray-100'>
                       <StatusBadge status={item.status}/> 
                     </div>
