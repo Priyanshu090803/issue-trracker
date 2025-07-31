@@ -4,12 +4,14 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 import { FaClockRotateLeft } from "react-icons/fa6";
 import ReactMarkdown from 'react-markdown';
+import delay from 'delay';
 
 interface Props {
     params:{id:string}
 }
 
 const IssueDetails = async ({params}:Props) => {
+    await delay(1000)
     // if(typeof params.id !== 'number') notFound()
     const findIssue = await prisma.issue.findUnique({
             where:{id:parseInt(params.id)}
@@ -23,7 +25,7 @@ const IssueDetails = async ({params}:Props) => {
         <StatusBadge status={findIssue.status}/>
         <span className=' text-sm text-neutral-700 underline flex  gap-1 items-center'><FaClockRotateLeft className=' text-xs'/>{findIssue.createdAt.toDateString()}</span>
         </div>
-        <div className=' prose   border w-fit px-4 rounded-lg border-neutral-300 py-1'>
+        <div className='    border w-fit px-4 rounded-lg border-neutral-300 py-1'>
         <ReactMarkdown >{findIssue.description}</ReactMarkdown>
         </div>
     </div>
