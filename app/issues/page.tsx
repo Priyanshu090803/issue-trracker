@@ -80,7 +80,7 @@ const Issues = async() => {
                   {/* Desktop Layout */}
                   <div className='hidden md:grid md:grid-cols-3 items-center'>
                     <Link href={`/issues/${item.id}`} className='px-6 py-4 border-r border-gray-100'>
-                      <h3 className='font-semibold text-gray-900 truncate text-left line-clamp-1'>{item.title}</h3>
+                      <h3 className='font-medium text-neutral-900 capitalize hover:underline hover:text-blue-500 truncate text-left line-clamp-1 scale-100 hover:scale-101 will-change-transform duration-150 delay-75 ease-out active:underline active:text-blue-500'>{item.title}</h3>
                     </Link>
                     <div className='px-6 py-4 border-r border-gray-100'>
                       <StatusBadge status={item.status}/> 
